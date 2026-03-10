@@ -1,4 +1,3 @@
-# Visual Studio
 .vs/
 [Bb]in/
 [Oo]bj/
@@ -8,19 +7,17 @@
 *.sln.docstates
 TestResults/
 
-# NuGet
+
 *.nupkg
 packages/
 
-# Rider
 .idea/
-
-# Visual Studio Code
 .vscode/
 
-# Resharper
 _ReSharper*/
 *.[Rr]e[Ss]harper
 
-# Others
 *.log
+Properties/
+app.config
+mfp.csproj
