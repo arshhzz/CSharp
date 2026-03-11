@@ -25,9 +25,14 @@ namespace mfp
         void Refund(float amount);
     }
 
-    class CreditCard : Payment, IRefundable
+    interface IAuditing
     {
-        public int CardNumber;
+        void Audit(float Amount);
+    }
+
+    class CreditCard : Payment, IRefundable, IAuditing
+    {
+        public int CardNumber { get; set; }
 
         public CreditCard(float amount, string currency, int cardNumber) : base(amount, currency)
         {
@@ -38,18 +43,27 @@ namespace mfp
         {
             Console.WriteLine($"We are processing the payment of {Amount}");
         }
+
+        public void Audit(float Amount)
+        {
+            Console.WriteLine($"Transaction of {Amount} logged for CreditCard");
+        }
         public void Refund(float Amount)
         {
             Console.WriteLine($"Processing refund of {Amount} to CardNumber: {CardNumber}");
         }
     }
-    class PayPalPayments: Payment, IRefundable
+    class PayPalPayments: Payment, IRefundable, IAuditing
     {
         public string Email { get; set; }
 
         public PayPalPayments(float Amount, string currency, string email) : base(Amount, currency)
         {
             Email = email;
+        }
+        public void Audit(float Amount)
+        {
+            Console.WriteLine($"Transaction of {Amount} logged for PayPal");
         }
         public override void ProcessPayment()
         {
@@ -60,22 +74,26 @@ namespace mfp
             Console.WriteLine($"Processing refund of {Amount} for : {Email}");
         }
     }
-    class CryptoPayments : Payment
+    class CryptoPayments : Payment, IAuditing
     {
-        public string WalletAddress;
+        public string WalletAddress { get; set; }
 
         public CryptoPayments(float Amount, string currency, string walletAddress) : base(Amount, currency)
         {
             WalletAddress = walletAddress;
+        }
+        public void Audit(float Amount)
+        {
+            Console.WriteLine($"Transaction of {Amount} logged for CryptoPayments");
         }
         public override void ProcessPayment()
         {
             Console.WriteLine($"We are processing the crypto payment of {Amount}");
         }
     }
-    internal class SmartZoo
+    internal class PaymentProcessor
     {
-        public SmartZoo() {
+        public PaymentProcessor() {
             List<Payment> paymentType = new List<Payment>();
             CreditCard c1 = new CreditCard(1000, "Dollars", 12123);
             PayPalPayments p1 = new PayPalPayments(2100, "Yen", "p1@gmail.com");
@@ -89,6 +107,10 @@ namespace mfp
             {
                 Console.WriteLine();
                 p.ProcessPayment();
+                if(p is IAuditing audit)
+                {
+                    audit.Audit(p.Amount);
+                }
                 if(p is IRefundable refundable)
                 {
                     refundable.Refund(p.Amount);

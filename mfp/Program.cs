@@ -16,7 +16,7 @@ namespace mfp
             //new Encapsulation_Inheritance_Polymorphism();
             //Console.WriteLine("Hi");
             //new InterfaceAndAbstracts();
-            new SmartZoo();
+            new PaymentProcessor();
 
         }
     }
