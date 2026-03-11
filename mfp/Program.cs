@@ -13,8 +13,11 @@ namespace mfp
     {
         static void Main(string[] args)
         {
-            new Encapsulation_Inheritance_Polymorphism();
-            Console.WriteLine("Hi");
+            //new Encapsulation_Inheritance_Polymorphism();
+            //Console.WriteLine("Hi");
+            //new InterfaceAndAbstracts();
+            new SmartZoo();
+
         }
     }
 }

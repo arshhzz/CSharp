@@ -18,6 +18,6 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 
 *.log
-Properties/
-app.config
-mfp.csproj
+/Properties/
+/app.config
+/mfp.csproj
